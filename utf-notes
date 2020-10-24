@@ -1,0 +1,56 @@
+A character is any symbol that represents information. 
+
+In computing terms, everything is represented in a sequence of 1s and 0s and characters as well.
+
+The ASCII maps every English character along with numbers and symbols to a number ranging from 32 - 127. 
+
+Codes below 32 were called unprintable and were used as control characters, 
+for example, 7 which made your computer beep and 10 for LF (line feed).
+
+That means every character can be represented by a single byte (8 bits).
+
+To create a single character set that included every reasonable writing system on the planet, Unicode was developed.
+
+Encodings
+
+Encoding, in simple terms, is a way to convert one form of data into another. So in our case, a way to convert the unicode code point U+0048 into some other form of data. One such form of encoding (albeit the most popular one) is UTF-8
+
+we can safely say that ASCII and Unicode before 127, are completely similar to each other.
+
+Now that we have established the narrative that all the unicode characters can be represented using 1– 4 bytes, 
+how do we represent them in Go?
+
+
+Go has a builtin data structure specifically for storing Unicode Code Points called a rune . While a byte is uint8, a rune is an int32 representing 4 bytes of memory, as 4 bytes is the max length for a Unicode Code Point.
+The default type for character values is rune, which means, if we don’t declare a type explicitly when declaring a variable with a character value, then Go will infer the type as rune.
+
+
+https://medium.com/swlh/utf-8-encoding-in-go-14b459564ccd#:~:text=UTF%2D8%20is%20an%20encoding,fact%2C%20up%20to%204%20bytes.
+
+
+http://www.ltg.ed.ac.uk/~richard/utf-8.html
+
+In short, the only reason to use UTF-16 or UTF-32 is to support non-English and ancient scripts respectively.
+
+0B85 அ
+0B87 இ
+
+
+https://upload.wikimedia.org/wikipedia/commons/d/dd/ASCII-Table.svg
+
+
+
+
+In UTF-32 all of characters are coded with 32 bits. The advantage is that you can easily calculate the length of the string. The disadvantage is that for each ASCII characters you waste an extra three bytes.
+
+In UTF-8 characters have variable length, ASCII characters are coded in one byte (eight bits), most western special characters are coded either in two bytes or three bytes (for example € is three bytes), and more exotic characters can take up to four bytes. Clear disadvantage is, that a priori you cannot calculate string's length. But it's takes lot less bytes to code Latin (English) alphabet text, compared to UTF-32.
+
+UTF-16 is also variable length. Characters are coded either in two bytes or four bytes. I really don't see the point. It has disadvantage of being variable length, but hasn't got the advantage of saving as much space as UTF-8.
+
+Of those three, clearly UTF-8 is the most widely spread.
+
+
+https://naveenr.net/unicode-character-set-and-utf-8-utf-16-utf-32-encoding/
+
+
+https://golangbyexample.com/double-single-back-quotes-go/
